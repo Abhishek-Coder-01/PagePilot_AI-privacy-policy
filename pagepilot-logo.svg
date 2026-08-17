@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title">
+  <title id="title">PagePilot AI logo</title>
+  <defs>
+    <linearGradient id="logo-blue" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4FA8F5"/><stop offset="100%" stop-color="#2A6DF4"/></linearGradient>
+    <linearGradient id="logo-green" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3EB668"/><stop offset="100%" stop-color="#2D9E56"/></linearGradient>
+    <linearGradient id="logo-red" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F13A2E"/><stop offset="100%" stop-color="#F5822C"/></linearGradient>
+    <linearGradient id="logo-yellow" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FBC013"/><stop offset="100%" stop-color="#F5C518"/></linearGradient>
+  </defs>
+  <path d="M200,200 C200,200 130,140 130,90 C130,50 163,20 200,20 C237,20 270,50 270,90 C270,140 200,200 200,200 Z" fill="url(#logo-blue)"/>
+  <path d="M200,200 C200,200 140,130 90,130 C50,130 20,163 20,200 C20,237 50,270 90,270 C140,270 200,200 200,200 Z" fill="url(#logo-green)"/>
+  <path d="M200,200 C200,200 260,130 310,130 C350,130 380,163 380,200 C380,237 350,270 310,270 C260,270 200,200 200,200 Z" fill="url(#logo-red)"/>
+  <path d="M200,200 C200,200 130,260 130,310 C130,350 163,380 200,380 C237,380 270,350 270,310 C270,260 200,200 200,200 Z" fill="url(#logo-yellow)"/>
+</svg>

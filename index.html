@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — PagePilot AI</title>
+  <meta name="description" content="Privacy Policy for the PagePilot AI Chrome Extension by Abhishek Yadav." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="pagepilot-logo.svg" />
+
+  <style>
+    :root {
+      --bg: #070a10;
+      --bg-alt: #0d121b;
+      --card: rgba(17, 23, 35, 0.82);
+      --card-border: rgba(142, 161, 200, 0.16);
+      --text: #e6e9f2;
+      --text-muted: #9aa3b8;
+      --text-faint: #6b7386;
+      --accent: #83a7ff;
+      --accent-2: #63e2b7;
+      --accent-grad: linear-gradient(135deg, #3a87ef 0%, #8b76f3 52%, #f5c51c 100%);
+      --radius: 20px;
+      --maxw: 860px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(124, 156, 255, 0.14), transparent 60%),
+        radial-gradient(1000px 500px at 100% 0%, rgba(99, 226, 183, 0.10), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image: radial-gradient(rgba(255, 255, 255, .12) .6px, transparent .6px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* NAV */
+    header.site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 14, 20, 0.75);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      padding: 3px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-badge svg,
+    .brand-badge img {
+      width: 27px;
+      height: 27px;
+      display: block;
+    }
+
+    .brand-name {
+      letter-spacing: -.02em;
+    }
+
+    .brand-name span {
+      color: var(--accent);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 30px;
+      margin-bottom: 26px;
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(20, 29, 47, .96), rgba(15, 20, 31, .82));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      right: -100px;
+      top: -100px;
+      border-radius: 50%;
+      background: rgba(58, 135, 239, .16);
+      filter: blur(20px);
+    }
+
+    .hero-mark {
+      position: relative;
+      z-index: 1;
+      width: 116px;
+      height: 116px;
+      display: grid;
+      place-items: center;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: inset 0 1px rgba(255, 255, 255, .14);
+    }
+
+    .hero-mark svg,
+    .hero-mark img {
+      width: 92px;
+      height: 92px;
+      filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .25));
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      margin: 0 0 8px;
+      color: var(--accent-2);
+      font-size: .78rem;
+      font-weight: 750;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 48px 24px 100px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      background: rgba(99, 226, 183, 0.08);
+      border: 1px solid rgba(99, 226, 183, 0.25);
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    h1.page-title {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      margin: 0 0 10px;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      margin: 0 0 36px;
+      max-width: 640px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .meta-pill {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    section.policy-section {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    section.policy-section:hover {
+      transform: translateY(-2px);
+      border-color: rgba(131, 167, 255, .32);
+      background: rgba(20, 27, 42, .9);
+    }
+
+    section.policy-section:target {
+      border-color: rgba(114, 224, 189, .42);
+      box-shadow: 0 0 0 3px rgba(114, 224, 189, .06), 0 12px 34px rgba(0, 0, 0, .16);
+    }
+
+    code {
+      color: var(--accent-2);
+      background: rgba(114, 224, 189, .08);
+      border: 1px solid rgba(114, 224, 189, .14);
+      border-radius: 6px;
+      padding: 2px 5px;
+      font-size: .88em;
+    }
+
+    section.policy-section h2 {
+      font-size: 1.15rem;
+      margin: 0 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+    }
+
+    section.policy-section h2 .num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0b0e14;
+      background: var(--accent-grad);
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    section.policy-section p {
+      color: var(--text-muted);
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+    }
+
+    section.policy-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    section.policy-section ul {
+      margin: 0 0 12px;
+      padding-left: 20px;
+      color: var(--text-muted);
+    }
+
+    section.policy-section ul:last-child {
+      margin-bottom: 0;
+    }
+
+    section.policy-section li {
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+    }
+
+    section.policy-section li:last-child {
+      margin-bottom: 0;
+    }
+
+    section.policy-section strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: rgba(124, 156, 255, 0.06);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .contact-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .contact-card .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .contact-card a {
+      font-size: 0.95rem;
+      word-break: break-word;
+    }
+
+    footer.site-footer {
+      border-top: 1px solid var(--card-border);
+      margin-top: 40px;
+      padding: 34px 24px 46px;
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 0.88rem;
+    }
+
+    footer.site-footer .updated {
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    footer.site-footer .brand-line {
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    footer.site-footer .back-home {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width:640px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 23px;
+      }
+
+      .hero-mark {
+        width: 78px;
+        height: 78px;
+        border-radius: 23px;
+      }
+
+      .hero-mark svg,
+      .hero-mark img {
+        width: 62px;
+        height: 62px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+
+      section.policy-section {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-badge" aria-hidden="true">
+          <img src="pagepilot-logo.svg" alt="" />
+        </span>
+        <span class="brand-name">PagePilot <span>AI</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="https://abhishek-coder-01.github.io/Portfolio/" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://github.com/Abhishek-Coder-01" target="_blank" rel="noopener">GitHub</a>
+        <a href="#contact">Contact</a>
+        <a class="active" href="#top">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="hero-kicker">PagePilot AI - Trust center</p>
+        <h1 class="page-title">Privacy, made clear.</h1>
+        <p class="subtitle">A transparent look at how PagePilot AI handles webpage content, your Gemini key, and the
+          tools you choose to use.</p>
+      </div>
+      <div class="hero-mark" aria-label="PagePilot AI logo">
+        <img src="pagepilot-logo.svg" alt="PagePilot AI logo" />
+      </div>
+    </div>
+
+    <span class="eyebrow">Legal · Chrome Extension</span>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="subtitle">
+      This Privacy Policy explains how the <strong>PagePilot AI</strong> Chrome Extension handles
+      information when you use it. It is written in plain language so you know exactly what
+      happens to your data.
+    </p>
+
+    <div class="meta-row">
+      <span class="meta-pill">Extension: PagePilot AI</span>
+      <span class="meta-pill">Developer: Abhishek Yadav</span>
+      <span class="meta-pill">Last updated: August 2026</span>
+    </div>
+
+    <!-- 1 -->
+    <section class="policy-section" id="privacy-policy">
+      <h2><span class="num">1</span> Privacy Policy</h2>
+      <p>
+        This Privacy Policy applies to the <strong>PagePilot AI</strong> Chrome Extension
+        ("the Extension", "PagePilot AI"), developed and maintained by Abhishek Yadav.
+        By installing or using PagePilot AI, you agree to the practices described in this
+        policy. If you do not agree with this policy, please do not install or use the Extension.
+      </p>
+    </section>
+
+    <!-- 2 -->
+    <section class="policy-section" id="what-it-does">
+      <h2><span class="num">2</span> What PagePilot AI Does</h2>
+      <p>
+        PagePilot AI is a Chrome extension that helps you understand and interact with
+        webpages using AI-powered analysis and local browser tools. Its features fall into
+        two categories:
+      </p>
+      <p><strong>AI-powered features (require your Gemini API key):</strong></p>
+      <ul>
+        <li>Summarize webpages</li>
+        <li>Ask questions about the current webpage</li>
+        <li>Find buttons on the page</li>
+        <li>List key links</li>
+        <li>Explain forms</li>
+        <li>Generate key takeaways</li>
+        <li>Explain webpage code</li>
+      </ul>
+      <p><strong>Local browser tools (no AI, no internet request required):</strong></p>
+      <ul>
+        <li>Download Images</li>
+        <li>Inspect Element</li>
+        <li>Remove Ads / Clean Page</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="policy-section" id="information-we-process">
+      <h2><span class="num">3</span> Information We Process</h2>
+      <p>PagePilot AI processes only the information necessary to provide its features:</p>
+      <ul>
+        <li>
+          <strong>Webpage content:</strong> When you use an AI-powered feature, relevant
+          content from the currently open webpage (such as visible text, links, form
+          fields, or code) may be processed in order to generate a response.
+        </li>
+        <li>
+          <strong>Gemini API key:</strong> You provide your own Google Gemini API key.
+          This key is stored locally on your device/browser and is used to authenticate
+          requests to the Gemini API.
+        </li>
+        <li>
+          <strong>Locally processed page data:</strong> Local tools (Download Images,
+          Inspect Element, Remove Ads / Clean Page) read and process webpage information
+          directly in your browser, without sending it anywhere.
+        </li>
+      </ul>
+      <p>
+        PagePilot AI does not require you to create an account, and does not ask for
+        personal information such as your name, email address, or payment details.
+      </p>
+    </section>
+
+    <!-- 4 -->
+    <section class="policy-section" id="how-used">
+      <h2><span class="num">4</span> How Information Is Used</h2>
+      <p>Information processed by PagePilot AI is used solely to:</p>
+      <ul>
+        <li>Generate AI-powered responses (summaries, answers, explanations, takeaways, etc.) for the webpage you are
+          viewing.</li>
+        <li>Authenticate your requests to the Google Gemini API using your stored API key.</li>
+        <li>Perform local, on-device actions such as downloading images, inspecting page elements, or cleaning a page of
+          ads.</li>
+      </ul>
+      <p>
+        PagePilot AI does not use your data for advertising, analytics, profiling, or any
+        purpose unrelated to the feature you actively used.
+      </p>
+    </section>
+
+    <!-- 5 -->
+    <section class="policy-section" id="gemini-api">
+      <h2><span class="num">5</span> Google Gemini API</h2>
+      <p>
+        PagePilot AI's AI-powered features are built on the <strong>Google Gemini API</strong>.
+        When you use an AI feature, the relevant webpage content and your request are sent
+        directly from your browser to Google's Gemini API, using the API key you provided,
+        in order to generate a response.
+      </p>
+      <p>
+        Your Gemini API key is used to make these requests but is <strong>not sent to or
+          stored on any server operated by the developer of PagePilot AI</strong>. It is used
+        only to communicate directly with Google's Gemini API on your behalf.
+      </p>
+      <p>
+        Because Gemini is a third-party AI service provided by Google, any webpage content
+        submitted through an AI feature is subject to Google's own data handling and privacy
+        practices. We encourage you to review Google's privacy documentation for details on
+        how Google processes API requests:
+      </p>
+      <p>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+          Google Privacy Policy
+        </a>
+        &nbsp;·&nbsp;
+        <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">
+          Gemini API Additional Terms of Service
+        </a>
+      </p>
+      <div class="callout">
+        In short: your API key is used to talk to Gemini, not to our servers — because
+        PagePilot AI does not operate a backend server.
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="policy-section" id="local-tools">
+      <h2><span class="num">6</span> Local Browser Tools</h2>
+      <p>
+        The following features operate entirely within your browser and do <strong>not</strong>
+        send any data to the Gemini API or to any external server:
+      </p>
+      <ul>
+        <li><strong>Download Images</strong> — detects and downloads images from the current page locally.</li>
+        <li><strong>Inspect Element</strong> — lets you view the underlying HTML/CSS of page elements locally.</li>
+        <li><strong>Remove Ads / Clean Page</strong> — removes or hides selected elements from the page view locally.
+        </li>
+      </ul>
+      <p>
+        These tools work by directly manipulating or reading the webpage's DOM inside your
+        browser tab. No network request is made when you use these local tools.
+      </p>
+    </section>
+
+    <!-- 7 -->
+    <section class="policy-section" id="storage-retention">
+      <h2><span class="num">7</span> Data Storage and Retention</h2>
+      <ul>
+        <li>
+          <strong>API key:</strong> Stored locally in your browser's extension storage
+          (e.g. Chrome's local storage for extensions). It stays on your device and is not
+          transmitted to any server operated by PagePilot AI.
+        </li>
+        <li>
+          <strong>Webpage content used for AI features:</strong> Processed temporarily to
+          generate a response and is not permanently stored by PagePilot AI. PagePilot AI
+          does not operate a database or backend server, so no long-term storage of your
+          webpage content occurs on our end.
+        </li>
+        <li>
+          <strong>Local tool data:</strong> Processed and used directly within your browser
+          session and is not stored beyond what is needed to perform the requested local
+          action (e.g. saving a downloaded image to your device).
+        </li>
+      </ul>
+      <p>
+        Any handling or retention of data by Google's Gemini API once a request is sent is
+        governed by Google's own privacy policy, not by PagePilot AI.
+      </p>
+    </section>
+
+    <!-- 8 -->
+    <section class="policy-section" id="data-sharing">
+      <h2><span class="num">8</span> Data Sharing</h2>
+      <ul>
+        <li><strong>We do not sell your data.</strong> PagePilot AI does not sell, rent, or trade user data to any third
+          party.</li>
+        <li>
+          <strong>Google Gemini API:</strong> The only third-party service PagePilot AI
+          interacts with is Google's Gemini API, used solely to power the AI features you
+          actively choose to use.
+        </li>
+        <li>
+          PagePilot AI does not share your data with advertisers, analytics providers, or
+          any other third party, because no such integrations exist in the Extension.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 9 -->
+    <section class="policy-section" id="data-security">
+      <h2><span class="num">9</span> Data Security</h2>
+      <p>
+        Your Gemini API key is stored locally within your browser's extension storage
+        rather than on any remote server, which limits its exposure. However, no method of
+        local storage or data transmission over the internet is completely secure, and
+        PagePilot AI cannot guarantee absolute security.
+      </p>
+      <p>
+        You are responsible for keeping your device and browser secure, and for safeguarding
+        your own Gemini API key, in the same way you would with any other API credential.
+      </p>
+    </section>
+
+    <!-- 10 -->
+    <section class="policy-section" id="user-choices">
+      <h2><span class="num">10</span> User Choices and Control</h2>
+      <ul>
+        <li>You can add, update, or remove your Gemini API key at any time from the Extension's settings.</li>
+        <li>You can choose to use only the local tools (Download Images, Inspect Element, Remove Ads / Clean Page)
+          without ever providing an API key.</li>
+        <li>You can stop using any AI-powered feature at any time — simply not invoking that feature means no webpage
+          content is sent to the Gemini API.</li>
+        <li>You can uninstall the Extension at any time via <code>chrome://extensions</code>, which removes the locally
+          stored API key and any extension data from your browser.</li>
+      </ul>
+    </section>
+
+    <!-- 11 -->
+    <section class="policy-section" id="childrens-privacy">
+      <h2><span class="num">11</span> Children's Privacy</h2>
+      <p>
+        PagePilot AI is not directed at children and is not intended for use by individuals
+        under the age of 13 (or the minimum age required by your jurisdiction). We do not
+        knowingly collect personal information from children. If you believe a child has
+        provided information through the Extension, please contact us so it can be addressed.
+      </p>
+    </section>
+
+    <!-- 12 -->
+    <section class="policy-section" id="changes">
+      <h2><span class="num">12</span> Changes to This Privacy Policy</h2>
+      <p>
+        This Privacy Policy may be updated from time to time to reflect changes in the
+        Extension's functionality or for legal and regulatory reasons. Any changes will be
+        posted on this page with an updated "Last updated" date. Continued use of PagePilot AI
+        after changes are posted constitutes acceptance of the revised policy.
+      </p>
+    </section>
+
+    <!-- 13 -->
+    <section class="policy-section" id="contact">
+      <h2><span class="num">13</span> Contact</h2>
+      <p>
+        If you have any questions, concerns, or requests regarding this Privacy Policy or
+        PagePilot AI, you can reach the developer here:
+      </p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="label">Developer</div>
+          Abhishek Yadav
+        </div>
+        <div class="contact-card">
+          <div class="label">Portfolio</div>
+          <a href="https://abhishek-coder-01.github.io/Portfolio/" target="_blank" rel="noopener">
+            abhishek-coder-01.github.io/Portfolio
+          </a>
+        </div>
+        <div class="contact-card">
+          <div class="label">GitHub</div>
+          <a href="https://github.com/Abhishek-Coder-01" target="_blank" rel="noopener">
+            github.com/Abhishek-Coder-01
+          </a>
+        </div>
+        <div class="contact-card">
+          <div class="label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/abhishek-yadav-292ba9308/" target="_blank" rel="noopener">
+            linkedin.com/in/abhishek-yadav-292ba9308
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="updated">Last updated: August 2026</div>
+    <div class="brand-line">PagePilot AI — Privacy Policy</div>
+    <a class="back-home" href="https://abhishek-coder-01.github.io/Portfolio/">← Back to Portfolio</a>
+  </footer>
+
+</body>
+
+</html>

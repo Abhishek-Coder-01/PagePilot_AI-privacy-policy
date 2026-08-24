@@ -1402,7 +1402,7 @@
     </section>
   </main>
 
-  <footer class="border-t border-black/10 py-13 sm:py-9 lg:py-12">
+  <footer class="border-t border-black/10 py-10 sm:py-9 lg:py-12">
     <div class="w-full max-w-site mx-auto px-5 sm:px-8 lg:px-11">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr] gap-9 items-start">
         <div class="max-w-[22rem] sm:col-span-2 lg:col-span-1">
@@ -1452,6 +1452,58 @@
       </div>
     </div>
   </footer>
+
+  <!-- Scroll To Top -->
+  <div id="scrollTopBtn" class="fixed
+         right-3 bottom-3
+         xs:right-4 xs:bottom-4
+         sm:right-5 sm:bottom-5
+         md:right-6 md:bottom-6
+         lg:right-7 lg:bottom-7
+         z-[999]
+         opacity-0 invisible translate-y-5
+         transition-all duration-500 ease-out">
+    <button type="button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Scroll to top" class="group relative
+           w-12 h-12
+           sm:w-13 sm:h-13
+           md:w-14 md:h-14
+           lg:w-[58px] lg:h-[58px]
+           rounded-full
+           flex items-center justify-center
+           outline-none">
+
+      <!-- Green Inner Circle -->
+      <span class="absolute
+             inset-[4px]
+             sm:inset-[5px]
+             rounded-full
+             bg-[#119d6d]
+             flex items-center justify-center
+             transition-all duration-300
+             group-hover:bg-[#0d8b60]
+             group-hover:shadow-[0_8px_25px_rgba(17,157,109,0.30)]
+             group-active:scale-95">
+
+        <!-- Bold SVG Arrow -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-5 h-5
+               sm:w-[22px] sm:h-[22px]
+               md:w-6 md:h-6
+               lg:w-[25px] lg:h-[25px]
+               text-white
+               transition-transform duration-300
+               group-hover:-translate-y-1">
+
+          <path d="M5 11L12 4L19 11" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+
+          <path d="M12 4V20" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+
+        </svg>
+
+      </span>
+
+    </button>
+  </div>
 
   <script>
     (function () {
@@ -1532,6 +1584,44 @@
         setActive(sections[0] ? sections[0].id : 'introduction');
       })();
     })();
+
+    // sceroll to top button
+
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    function toggleScrollTop() {
+      if (window.scrollY > 450) {
+        scrollTopBtn.classList.remove(
+          "opacity-0",
+          "invisible",
+          "translate-y-5"
+        );
+
+        scrollTopBtn.classList.add(
+          "opacity-100",
+          "visible",
+          "translate-y-0"
+        );
+      } else {
+        scrollTopBtn.classList.remove(
+          "opacity-100",
+          "visible",
+          "translate-y-0"
+        );
+
+        scrollTopBtn.classList.add(
+          "opacity-0",
+          "invisible",
+          "translate-y-5"
+        );
+      }
+    }
+
+    window.addEventListener("scroll", toggleScrollTop, {
+      passive: true
+    });
+
+    toggleScrollTop();
   </script>
 </body>
 

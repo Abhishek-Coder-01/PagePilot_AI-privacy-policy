@@ -262,6 +262,133 @@
         font-size: 3.35rem;
       }
     }
+
+    /* ============================================================
+       PREMIUM 3D HERO ILLUSTRATION
+       ============================================================ */
+    .hero-stage {
+      position: relative;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      --mx: 0;                 /* mouse X, -1..1 */
+      --my: 0;                 /* mouse Y, -1..1 */
+      --sp: 0;                 /* scroll progress 0..1 */
+      --tx: 0deg;              /* eased tilt X */
+      --ty: 0deg;              /* eased tilt Y */
+    }
+
+    .hero-stage::before {
+      content: "";
+      position: absolute;
+      filter: blur(30px);
+      opacity: calc(.55 + var(--sp) * .35);
+      transform: translateY(calc(var(--sp) * 8px));
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity .5s ease;
+    }
+
+    .hero-scene {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--tx)) rotateY(var(--ty)) translateZ(0);
+      transition: transform .45s cubic-bezier(.22,1,.36,1);
+      will-change: transform;
+    }
+
+    .hero-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 30px 40px rgba(17,149,102,.10)) drop-shadow(0 8px 14px rgba(16,22,31,.06));
+    }
+
+    /* Idle float — replaces the old .animate-float on the SVG root.
+       Applied to an inner group so it composes with mouse/scroll transforms. */
+    @keyframes hero-drift {
+      0%,100% { transform: translateY(0) }
+      50%     { transform: translateY(-10px) }
+    }
+    .hero-drift { animation: hero-drift 6s ease-in-out infinite; transform-origin: center; }
+
+    @keyframes hero-shield-anim-kf {
+      0%,100% { transform: translateY(0) }
+      50%     { transform: translateY(-4px) }
+    }
+    .hero-shield-anim { animation: hero-shield-anim-kf 5s ease-in-out infinite; transform-origin: 230px 220px; }
+
+    @keyframes hero-badge-anim-kf {
+      0%,100% { transform: translateY(0) }
+      50%     { transform: translateY(-6px) }
+    }
+    .hero-badge-anim { animation: hero-badge-anim-kf 4.5s ease-in-out infinite; }
+
+    @keyframes hero-doc-anim-kf {
+      0%,100% { transform: translateY(0) }
+      50%     { transform: translateY(-5px) }
+    }
+    .hero-doc-anim { animation: hero-doc-anim-kf 5.5s ease-in-out infinite; }
+
+    @keyframes hero-dots-drift {
+      0%,100% { transform: translateY(0) }
+      50%     { transform: translateY(-3px) }
+    }
+    .hero-dots-anim { animation: hero-dots-drift 7s ease-in-out infinite; transform-origin: center; }
+
+    /* Parallax layer offsets driven by JS-set CSS vars */
+    .layer-bg   { transform: translate3d(calc(var(--mx) * -6px), calc(var(--my) * -6px), 0); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+    .layer-orbit{ transform: translate3d(calc(var(--mx) *  3px), calc(var(--my) *  3px), 0); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+    .layer-card { transform: translate3d(calc(var(--mx) *  5px), calc(var(--my) *  5px), 0) translateY(calc(var(--sp) * -12px)); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+    .layer-doc  { transform: translate3d(calc(var(--mx) *  9px), calc(var(--my) *  9px), 0) translateY(calc(var(--sp) * -6px)); transition: transform .5s cubic-bezier(.22,1,.36,1); transform-origin: 124px 148px; }
+    .layer-shield {
+      transform:
+        translate3d(calc(var(--mx) * 11px), calc(var(--my) * 11px), 0)
+        translateY(calc(var(--sp) * -18px))
+        scale(calc(1 + var(--sp) * .04));
+      transition: transform .5s cubic-bezier(.22,1,.36,1);
+      transform-origin: 230px 220px;
+    }
+    .layer-badge {
+      transform:
+        translate3d(calc(var(--mx) * 14px + var(--sp) * 22px), calc(var(--my) * 14px + var(--sp) * -6px), 0);
+      transition: transform .5s cubic-bezier(.22,1,.36,1);
+      transform-origin: 356px 248px;
+    }
+    .layer-particles { transform: translate3d(calc(var(--mx) * 18px), calc(var(--my) * 18px), 0); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+
+    /* Animated data-path dashes */
+    .data-path { stroke-dashoffset: 0; animation: dash-drift 6s linear infinite; }
+    @keyframes dash-drift { to { stroke-dashoffset: -56 } }
+
+    /* Decorative plus micro-rotation */
+    .plus-mark { transform-origin: 392px 139px; animation: plus-tilt 8s ease-in-out infinite; }
+    @keyframes plus-tilt { 0%,100% { transform: rotate(0deg) } 50% { transform: rotate(8deg) } }
+
+    /* Highlight sheen on shield reacting to mouse */
+    .shield-sheen { opacity: calc(.35 + (var(--mx) + var(--my)) * .08); transition: opacity .4s ease; }
+
+    /* Card inner shadow / highlight for premium depth */
+    .card-highlight { mix-blend-mode: overlay; opacity: .65; pointer-events: none; }
+
+    /* Reduced motion — kill all custom hero animation */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-drift, .hero-shield-anim, .hero-badge-anim, .hero-doc-anim,
+      .hero-dots-anim, .cursor-ring, .data-path, .plus-mark { animation: none !important; }
+      .hero-scene, .layer-bg, .layer-orbit, .layer-card, .layer-doc,
+      .layer-shield, .layer-badge, .layer-particles { transition: none !important; transform: none !important; }
+    }
+
+    /* Tablet: gentler parallax */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      .hero-stage { perspective: 1800px; }
+      .layer-badge  { transform: translate3d(calc(var(--sp) * 14px), 0, 0); }
+      .layer-shield { transform: translateY(calc(var(--sp) * -10px)); }
+    }
   </style>
 </head>
 
@@ -393,143 +520,202 @@
                 <path d="M12 5v14M6 13l6 6 6-6" />
               </svg>
             </a>
-            <a href="#contact"
+            <a href=https://chromewebstore.google.com/detail/pagepilot-ai/dadllnnpodcfiodbpkjfmkfdolkcplpd?authuser=0&hl=en-GB" target="_blank" rel="noopener noreferrer"
               class="inline-flex items-center gap-2 font-semibold text-[.95rem] leading-none px-6 py-4 rounded-full text-ink border border-black/[.18] transition-all duration-300 hover:border-accent hover:text-accent-deep hover:-translate-y-0.5">
-              Contact us
+              Install Extension
+
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="none"
+                aria-hidden="true">
+                <path
+                  d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v9A2.5 2.5 0 0 1 17.5 17h-11A2.5 2.5 0 0 1 4 14.5v-9Z"
+                  stroke="currentColor" stroke-width="1.8" />
+                <path d="M12 6.5v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <path d="m8.8 10.8 3.2 3.2 3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M8 20h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
             </a>
           </div>
         </div>
 
-        <div class="relative grid place-items-center hidden md:grid" aria-hidden="true">
-          <svg class="animate-float w-full max-w-[460px] h-auto" viewBox="0 0 460 460" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- Main soft green gradient -->
-              <linearGradient id="privacyCard" x1="120" y1="110" x2="350" y2="350">
-                <stop offset="0" stop-color="#E9FBF4" />
-                <stop offset="1" stop-color="#D7F2E7" />
-              </linearGradient>
+        <div class="hero-stage relative place-items-center hidden md:grid" aria-hidden="true" id="heroStage">
+          <div class="hero-scene" id="heroScene">
+            <svg class="hero-svg" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Main soft green gradient -->
+                <linearGradient id="privacyCard" x1="120" y1="110" x2="350" y2="350">
+                  <stop offset="0" stop-color="#E9FBF4" />
+                  <stop offset="1" stop-color="#D7F2E7" />
+                </linearGradient>
 
-              <!-- Shield gradient -->
-              <linearGradient id="shieldGradient" x1="190" y1="145" x2="280" y2="300">
-                <stop offset="0" stop-color="#16A675" />
-                <stop offset="1" stop-color="#0D8B62" />
-              </linearGradient>
+                <!-- Shield gradient -->
+                <linearGradient id="shieldGradient" x1="190" y1="145" x2="280" y2="300">
+                  <stop offset="0" stop-color="#16A675" />
+                  <stop offset="1" stop-color="#0D8B62" />
+                </linearGradient>
 
-              <!-- Soft glow -->
-              <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#119566" flood-opacity=".10" />
-              </filter>
-            </defs>
+                <!-- Subtle top highlight on the card -->
+                <linearGradient id="cardSheen" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity=".85" />
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
 
-            <!-- Background decorative circles -->
-            <circle cx="82" cy="92" r="54" fill="#EEF1FB" opacity=".9" />
+                <!-- Ambient green glow behind card -->
+                <radialGradient id="ambientGlow" cx=".5" cy=".5" r=".55">
+                  <stop offset="0" stop-color="#16A675" stop-opacity=".22" />
+                  <stop offset="1" stop-color="#16A675" stop-opacity="0" />
+                </radialGradient>
 
-            <circle cx="386" cy="378" r="48" fill="#FFF1E5" opacity=".9" />
+                <!-- Shield inner sheen -->
+                <linearGradient id="shieldSheen" x1="0" y1="-70" x2="0" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity=".9" />
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
 
-            <circle cx="398" cy="82" r="20" fill="#BDE9D9" opacity=".75" />
+                <!-- Layered soft shadow (main card) -->
+                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0c7751" flood-opacity=".14" />
+                  <feDropShadow dx="0" dy="4"  stdDeviation="6"  flood-color="#10161f" flood-opacity=".06" />
+                </filter>
 
-            <!-- Tiny decorative dots -->
-            <circle cx="74" cy="350" r="5" fill="#119566" opacity=".18" />
-            <circle cx="394" cy="178" r="5" fill="#119566" opacity=".16" />
+                <!-- Elevated shadow for floating shield -->
+                <filter id="shieldShadow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#0D8B62" flood-opacity=".22" />
+                  <feDropShadow dx="0" dy="2"  stdDeviation="3"  flood-color="#10161f" flood-opacity=".08" />
+                </filter>
 
-            <!-- Main card -->
-            <rect x="112" y="104" width="236" height="236" rx="58" fill="url(#privacyCard)" stroke="#B7E5D5"
-              stroke-width="2" filter="url(#softShadow)" />
+                <!-- Elevated shadow for badge / cursor (closer to viewer) -->
+                <filter id="badgeShadow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#10161f" flood-opacity=".18" />
+                  <feDropShadow dx="0" dy="3"  stdDeviation="4"  flood-color="#10161f" flood-opacity=".10" />
+                </filter>
 
-            <!-- Decorative orbit -->
-            <g class="animate-spin-slow">
-              <circle cx="230" cy="222" r="154" stroke="#10161F" stroke-opacity=".07" stroke-width="1.5"
-                stroke-dasharray="2 11" stroke-linecap="round" />
+                <!-- Soft shadow for the small document badge -->
+                <filter id="docShadow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#10161f" flood-opacity=".12" />
+                </filter>
+              </defs>
 
-              <circle cx="230" cy="222" r="132" stroke="#119566" stroke-opacity=".22" stroke-width="1.5"
-                stroke-dasharray="2 9" stroke-linecap="round" />
-            </g>
+              <!-- =============== LAYER 1 — background & particles =============== -->
+              <g class="layer-bg">
+                <g class="hero-drift">
+                  <!-- Ambient green haze behind card -->
+                  <ellipse cx="230" cy="238" rx="170" ry="140" fill="url(#ambientGlow)" />
 
-            <!-- Central shield -->
-            <g transform="translate(230 220)">
-              <!-- Shield background -->
-              <path d="M0-70
-           L58-40
-           V8
-           C58 48 34 77 0 91
-           C-34 77-58 48-58 8
-           V-40
-           Z" fill="#FFFFFF" stroke="url(#shieldGradient)" stroke-width="4" stroke-linejoin="round" />
+                  <circle cx="82"  cy="92"  r="54" fill="#EEF1FB" opacity=".9" />
+                  <circle cx="386" cy="378" r="48" fill="#FFF1E5" opacity=".9" />
+                  <circle cx="398" cy="82"  r="20" fill="#BDE9D9" opacity=".75" />
 
-              <!-- Inner shield -->
-              <path d="M0-54
-           L43-32
-           V6
-           C43 34 24 56 0 67
-           C-24 56-43 34-43 6
-           V-32
-           Z" fill="#EAF9F3" opacity=".9" />
+                  <g class="hero-dots-anim">
+                    <circle cx="74"  cy="350" r="5" fill="#119566" opacity=".18" />
+                    <circle cx="394" cy="178" r="5" fill="#119566" opacity=".16" />
+                  </g>
+                </g>
+              </g>
 
-              <!-- Privacy check -->
-              <path d="M-25 4
-           L-7 22
-           L29-17" stroke="#119566" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
+              <!-- =============== LAYER 2 — orbit rings =============== -->
+              <g class="layer-orbit">
+                <g class="animate-spin-slow">
+                  <circle cx="230" cy="222" r="154" stroke="#10161F" stroke-opacity=".07" stroke-width="1.5"
+                    stroke-dasharray="2 11" stroke-linecap="round" />
+                  <circle cx="230" cy="222" r="132" stroke="#119566" stroke-opacity=".22" stroke-width="1.5"
+                    stroke-dasharray="2 9" stroke-linecap="round" />
+                </g>
+              </g>
 
-            <!-- Floating privacy badge -->
-            <g transform="translate(356 248)">
-              <circle r="38" fill="#FFFFFF" stroke="#CDE6EF" stroke-width="2" />
+              <!-- =============== LAYER 3 — main privacy card =============== -->
+              <g class="layer-card" id="heroLayerCard">
+                <!-- Soft ground shadow beneath card -->
+                <ellipse cx="230" cy="362" rx="110" ry="14" fill="#0c7751" opacity=".10" />
+                <rect x="112" y="104" width="236" height="236" rx="58"
+                  fill="url(#privacyCard)" stroke="#B7E5D5" stroke-width="2" filter="url(#softShadow)" />
+                <!-- Top sheen for glassy premium feel -->
+                <rect class="card-highlight" x="124" y="112" width="212" height="96" rx="48" fill="url(#cardSheen)" />
+                <!-- Subtle inner ring for depth -->
+                <rect x="122" y="114" width="216" height="216" rx="52"
+                  fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="1" />
+              </g>
 
-              <!-- Lock -->
-              <rect x="-12" y="-2" width="24" height="19" rx="4" fill="none" stroke="#2A7FB8" stroke-width="2.6" />
+              <!-- =============== LAYER 4 — document / data badge =============== -->
+              <g class="layer-doc" id="heroLayerDoc">
+                <g class="hero-doc-anim">
+                  <g transform="translate(124 148)" filter="url(#docShadow)">
+                    <rect x="-25" y="-25" width="50" height="50" rx="16" fill="#FFFFFF" stroke="#CFE7DE" stroke-width="2" />
+                    <path d="M-10-13 H4 L11-6 V14 H-10 Z" fill="none" stroke="#119566" stroke-width="2" stroke-linejoin="round" />
+                    <path d="M4-13 V-6 H11" stroke="#119566" stroke-width="2" stroke-linejoin="round" />
+                    <path d="M-5 1H6 M-5 7H6" stroke="#119566" stroke-width="2" stroke-linecap="round" opacity=".75" />
+                  </g>
+                </g>
+              </g>
 
-              <path d="M-7-2
-           V-8
-           A7 7 0 0 1 7-8
-           V-2" fill="none" stroke="#2A7FB8" stroke-width="2.6" stroke-linecap="round" />
+              <!-- =============== LAYER 5 — central shield =============== -->
+              <g class="layer-shield" id="heroLayerShield">
+                <g class="hero-shield-anim">
+                  <g transform="translate(230 220)" filter="url(#shieldShadow)">
+                    <!-- Shield background -->
+                    <path d="M0-70 L58-40 V8 C58 48 34 77 0 91 C-34 77-58 48-58 8 V-40 Z"
+                      fill="#FFFFFF" stroke="url(#shieldGradient)" stroke-width="4" stroke-linejoin="round" />
+                    <!-- Inner shield -->
+                    <path d="M0-54 L43-32 V6 C43 34 24 56 0 67 C-24 56-43 34-43 6 V-32 Z"
+                      fill="#EAF9F3" opacity=".9" />
+                    <!-- Inner sheen -->
+                    <path class="shield-sheen"
+                      d="M0-54 L43-32 V-4 C25-8 -25-8 -43-4 V-32 Z"
+                      fill="url(#shieldSheen)" />
+                    <!-- Privacy check -->
+                    <path d="M-25 4 L-7 22 L29-17" stroke="#119566" stroke-width="7"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </g>
+              </g>
 
-              <circle cx="0" cy="7" r="2" fill="#2A7FB8" />
-            </g>
+              <!-- =============== LAYER 6 — lock → cursor morph badge =============== -->
+              <g class="layer-badge" id="heroLayerBadge">
+                <g class="hero-badge-anim">
+                  <g transform="translate(356 248)" filter="url(#badgeShadow)">
+                    <!-- Card behind (kept for both states) -->
+                    <circle r="38" fill="#FFFFFF" stroke="#CDE6EF" stroke-width="2" />
 
-            <!-- Small document/data badge -->
-            <g transform="translate(124 148)">
-              <rect x="-25" y="-25" width="50" height="50" rx="16" fill="#FFFFFF" stroke="#CFE7DE" stroke-width="2" />
+                    <!-- LOCK state -->
+                    <g class="lock-group" id="heroLockGroup">
+                      <rect x="-12" y="-2" width="24" height="19" rx="4"
+                        fill="none" stroke="#2A7FB8" stroke-width="2.6" />
+                      <path d="M-7-2 V-8 A7 7 0 0 1 7-8 V-2"
+                        fill="none" stroke="#2A7FB8" stroke-width="2.6" stroke-linecap="round" />
+                      <circle cx="0" cy="7" r="2" fill="#2A7FB8" />
+                    </g>
+                    
+                  </g>
+                </g>
+              </g>
 
-              <!-- Document -->
-              <path d="M-10-13
-           H4
-           L11-6
-           V14
-           H-10
-           Z" fill="none" stroke="#119566" stroke-width="2" stroke-linejoin="round" />
+              <!-- =============== LAYER 7 — tiny particles / decorative =============== -->
+              <g class="layer-particles">
+                <!-- Decorative plus -->
+                <g class="plus-mark" stroke="#119566" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M392 128V150" />
+                  <path d="M381 139H403" />
+                </g>
 
-              <path d="M4-13
-           V-6
-           H11" stroke="#119566" stroke-width="2" stroke-linejoin="round" />
+                <!-- Bottom curved data path -->
+                <path class="data-path" d="M70 386 C135 424 224 432 310 398"
+                  stroke="#10161F" stroke-opacity=".18" stroke-width="2"
+                  stroke-linecap="round" stroke-dasharray="2 12" />
 
-              <path d="M-5 1H6
-           M-5 7H6" stroke="#119566" stroke-width="2" stroke-linecap="round" opacity=".75" />
-            </g>
+                <!-- Bottom data dots -->
+                <g fill="#119566">
+                  <circle cx="108" cy="405" r="3.5" opacity=".20" />
+                  <circle cx="132" cy="414" r="3.5" opacity=".18" />
+                  <circle cx="156" cy="411" r="3.5" opacity=".16" />
+                  <circle cx="180" cy="414" r="3.5" opacity=".13" />
+                </g>
 
-            <!-- Decorative plus -->
-            <g stroke="#119566" stroke-width="2.5" stroke-linecap="round">
-              <path d="M392 128V150" />
-              <path d="M381 139H403" />
-            </g>
-
-            <!-- Bottom curved data path -->
-            <path d="M70 386
-         C135 424 224 432 310 398" stroke="#10161F" stroke-opacity=".13" stroke-width="2" stroke-linecap="round"
-              stroke-dasharray="2 12" />
-
-            <!-- Bottom data dots -->
-            <g fill="#119566">
-              <circle cx="108" cy="405" r="3.5" opacity=".20" />
-              <circle cx="132" cy="414" r="3.5" opacity=".18" />
-              <circle cx="156" cy="411" r="3.5" opacity=".16" />
-              <circle cx="180" cy="414" r="3.5" opacity=".13" />
-            </g>
-
-            <!-- Small sparkle -->
-            <path d="M82 282V302
-         M72 292H92" stroke="#119566" stroke-width="2" stroke-linecap="round" opacity=".8" />
-          </svg>
+                <!-- Small sparkle -->
+                <path d="M82 282V302 M72 292H92" stroke="#119566" stroke-width="2"
+                  stroke-linecap="round" opacity=".8" />
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
@@ -1587,7 +1773,7 @@
 
     // sceroll to top button
 
-        const scrollTopBtn = document.getElementById("scrollTopBtn");
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
 
     function toggleScrollTop() {
       if (window.scrollY > 450) {
@@ -1623,6 +1809,122 @@
 
     toggleScrollTop();
   </script>
+  <!-- =========================================================
+       HERO 3D — mouse parallax, scroll morph & reduced motion
+       ========================================================= -->
+  <script>
+    (function () {
+      const stage = document.getElementById('heroStage');
+      const scene = document.getElementById('heroScene');
+      if (!stage || !scene) return;
+
+      const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const mqMobile = window.matchMedia('(max-width: 767px)');
+      if (mqReduce.matches) return;
+
+      // Eased state
+      let tMx = 0, tMy = 0;      // target mouse (-1..1)
+      let cMx = 0, cMy = 0;      // current, eased
+      let tSp = 0, cSp = 0;      // scroll progress
+      let rafId = null;
+      let ticking = false;
+
+      const setVar = (name, value) => stage.style.setProperty(name, value);
+
+      const easing = 0.09;
+
+      function loop() {
+        cMx += (tMx - cMx) * easing;
+        cMy += (tMy - cMy) * easing;
+        cSp += (tSp - cSp) * easing;
+
+        setVar('--mx', cMx.toFixed(4));
+        setVar('--my', cMy.toFixed(4));
+        setVar('--sp', cSp.toFixed(4));
+
+        // Global tilt on the scene
+        const maxTilt = 4;
+        setVar('--ty', (cMx * maxTilt).toFixed(3) + 'deg');
+        setVar('--tx', (-cMy * maxTilt).toFixed(3) + 'deg');
+
+        if (
+          Math.abs(tMx - cMx) > 0.001 ||
+          Math.abs(tMy - cMy) > 0.001 ||
+          Math.abs(tSp - cSp) > 0.001
+        ) {
+          rafId = requestAnimationFrame(loop);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function kick() {
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }
+
+      // Mouse parallax (desktop only)
+      function onMove(e) {
+        if (mqMobile.matches) return;
+        const rect = stage.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        tMx = Math.max(-1, Math.min(1, dx));
+        tMy = Math.max(-1, Math.min(1, dy));
+        kick();
+      }
+      function onLeave() {
+        tMx = 0; tMy = 0; kick();
+      }
+
+      // Scroll progress relative to hero
+      const hero = stage.closest('section');
+      function computeScroll() {
+        if (!hero) return;
+        const rect = hero.getBoundingClientRect();
+        const h = rect.height || window.innerHeight;
+        // 0 when hero top is at viewport top, 1 when scrolled a full hero height past.
+        const raw = -rect.top / h;
+        tSp = Math.max(0, Math.min(1, raw));
+        kick();
+      }
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          computeScroll();
+          ticking = false;
+        });
+      }
+
+      // Wire listeners — desktop gets mouse; everyone gets scroll.
+      if (!mqMobile.matches) {
+        window.addEventListener('mousemove', onMove, { passive: true });
+        stage.addEventListener('mouseleave', onLeave, { passive: true });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', computeScroll, { passive: true });
+
+      // Reduced-motion toggling on the fly
+      if (mqReduce.addEventListener) {
+        mqReduce.addEventListener('change', (ev) => {
+          if (ev.matches) {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = null;
+            setVar('--mx', 0); setVar('--my', 0); setVar('--sp', 0);
+            setVar('--tx', '0deg'); setVar('--ty', '0deg');
+          }
+        });
+      }
+
+      // Initial paint
+      computeScroll();
+      kick();
+    })();
+  </script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c319d37e2661827c42b1787588026925" integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 
 </html>
